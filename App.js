@@ -9,8 +9,13 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,Button
 } from 'react-native';
+import { StackNavigator } from 'react-navigation'; // 1.0.0-beta.14
+import { DrawerNavigator } from 'react-navigation'; // 1.0.0-beta.14
+/*import MovieDrawerComponent from  './app/components/MovieDrawerComponent'*/
+import HomeScreen from  './app/screens/HomeScreen'
+import MovieDrawerComponent from  './app/components/MovieDrawerComponent'
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -22,16 +27,8 @@ const instructions = Platform.select({
 export default class App extends Component<{}> {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
+      <View style={{flex:1}}>
+        <MovieDrawerComponent/>
       </View>
     );
   }
@@ -55,3 +52,11 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
+
+
+const DetailsScreen = () => (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Details Screen</Text>
+    </View>
+);
+
