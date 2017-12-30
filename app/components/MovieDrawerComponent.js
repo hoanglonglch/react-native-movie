@@ -9,6 +9,7 @@ import { DrawerNavigator } from 'react-navigation'; // 1.0.0-beta.14
 import HomeScreen from '../screens/HomeScreen';
 import MoviesScreen from '../screens/MoviesScreen';
 import MovieStackNavComponent from '../components/MovieStackNavComponent';
+import MovieTabNavComponent from '../components/MovieTabNavComponent';
 
 
 const MovieDrawerComponent = DrawerNavigator({
@@ -19,7 +20,7 @@ const MovieDrawerComponent = DrawerNavigator({
         }
     },
     MoviesDrawer:{
-        screen: MoviesScreen,
+        screen: MovieTabNavComponent,
         navigationOptions:{
             title: 'List Movies'
         }

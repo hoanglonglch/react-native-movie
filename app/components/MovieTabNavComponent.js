@@ -12,7 +12,7 @@ import MovieStackNavComponent from '../components/MovieStackNavComponent';
 
 const MovieTabNavComponent = TabNavigator({
     DescriptionTab:{
-        screen:MovieStackNavComponent,
+        screen:MoviesWithDescription,
         navigationOptions:{
             title: 'Description'
         }
