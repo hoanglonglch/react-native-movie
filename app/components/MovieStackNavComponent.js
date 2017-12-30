@@ -8,6 +8,7 @@ import {
 import { StackNavigator } from 'react-navigation'; // 1.0.0-beta.14
 import HomeScreen from '../screens/HomeScreen'
 import DetailMovieScreen from '../screens/DetailMovieScreen'
+import MoviesWithDescriptionScreen from '../screens/MoviesWithDescriptionScreen'
 
 const MovieStackNavComponent = StackNavigator({
     Home:{

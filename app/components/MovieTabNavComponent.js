@@ -8,10 +8,11 @@ import {
 import { TabNavigator } from 'react-navigation'; // 1.0.0-beta.14
 import MoviesWithDescription from '../screens/MoviesWithDescriptionScreen';
 import MoviesWithoutDescriptionScreen from '../screens/MoviesWithoutDescriptionScreen';
+import MovieStackNavComponent from '../components/MovieStackNavComponent';
 
 const MovieTabNavComponent = TabNavigator({
     DescriptionTab:{
-        screen:MoviesWithDescription,
+        screen:MovieStackNavComponent,
         navigationOptions:{
             title: 'Description'
         }

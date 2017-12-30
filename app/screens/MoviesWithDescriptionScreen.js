@@ -6,13 +6,13 @@ import {
     View,Button
 } from 'react-native';
 
-const MoviesWithDescription = ()=>(
+const MoviesWithDescription = ({navigation})=>(
     <View>
         <Text>Movie with Description</Text>
         <Button
             title='Detail Page'
             onPress={()=>{
-                this.props.navigation.navigate('Detail');
+                navigation.navigate('Detail');
             }}
         />
     </View>

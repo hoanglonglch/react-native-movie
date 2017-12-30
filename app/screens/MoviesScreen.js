@@ -10,7 +10,8 @@ import MovieTabNavComponent from '../components/MovieTabNavComponent'
 export default class MoviesScreen extends Component{
     render(){
         return(
-            <MovieTabNavComponent></MovieTabNavComponent>
+            <MovieTabNavComponent navigation={this.props.navigation}></MovieTabNavComponent>
         );
     };
 }
+MoviesScreen.router=MovieTabNavComponent.router;
