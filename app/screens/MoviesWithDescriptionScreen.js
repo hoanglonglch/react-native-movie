@@ -6,17 +6,20 @@ import {
     View,Button
 } from 'react-native';
 
-const MoviesWithDescription = ({navigation})=>(
-    <View>
-        <Text>Movie with Description</Text>
-        <Button
-            title='Detail Page'
-            onPress={()=>{
-                navigation.navigate('Detail');
-            }}
-        />
-    </View>
-
-)
+class MoviesWithDescription extends Component{
+   render(){
+       return(
+           <View>
+               <Text>Movie with Description</Text>
+               <Button
+                   title='Detail Page'
+                   onPress={()=>{
+                       this.props.navigation.navigate('Detail');
+                   }}
+               />
+           </View>
+       );
+   };
+}
 
 export default MoviesWithDescription;
