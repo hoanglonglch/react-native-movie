@@ -3,7 +3,7 @@ import {
     Platform,
     StyleSheet,
     Text,FlatList,
-    View,Button, Image
+    View,Button, Image,TouchableOpacity
 } from 'react-native';
 import MoviesUtils from  '../utils/MoviesUtils'
 
@@ -48,37 +48,54 @@ import MoviesUtils from  '../utils/MoviesUtils'
 
 class ImageWithDetailMoviesComponent extends Component{
     render(){
+        let navigation = this.props['navigation'];
+        let item = this.props['item']
+        let posterImage = item['poster_path'] !== '' ? MoviesUtils.getImageFromServer(item['poster_path']) : 'https://reactjs.org/logo-og.png';
         return(
             <View style={{flex:1}}>
-                <View style={{backgroundColor:'pink',height:250}}>
+                <View style={{height:250}}>
 
                     {/*Title and Add favorite button*/}
-                    <View style={{flex:1, backgroundColor:'yellow',flexDirection:'row',justifyContent:'space-between'}}>
-                        <Text>{this.props['title']=== ''? this.props['title']: 'Title'}</Text>
-                        <Text>Add Favorite</Text>
+                    <View style={{flex:1,flexDirection:'row',}}>
+                        <Text style={{flex:1,fontWeight:'bold',fontSize:13}}>{item['title'] !== ''? item['title']: 'Title'}</Text>
+                        <Text style={{
+                            flex:1,
+                            borderWidth: 0.5,
+                            alignItems: 'center',
+                            justifyContent:'center',
+                            borderColor: '#d6d7da',}}>Add Favorite</Text>
                     </View>
 
                     {/*Wrap content between  Image and description*/}
-                    <View style={{flex:7, backgroundColor:'green',flexDirection:'row'}}>
+                    <View style={{flex:7,flexDirection:'row'}}>
 
                         {/*Image*/}
-                        <View style={{flex:1.5, backgroundColor:'aqua',justifyContent:'center',alignItems:'center'}}>
-                            <Image source={{uri:'https://reactjs.org/logo-og.png'}} style={{width:200,height:200}}/>
+                        <View style={{flex:1.5,justifyContent:'center',alignItems:'center',backgroundColor:'grey'}}>
+
+                            <TouchableOpacity onPress={()=>{
+                                navigation.navigate('Detail');
+                            }}>
+                                <Image source={{
+                                    uri:posterImage
+                                }}
+                                       style={{width:200,height:300}}/>
+                            </TouchableOpacity>
+
                         </View>
 
                         {/*Detail Part*/}
-                        <View style={{flex:2, backgroundColor:'purple'}}>
+                        <View style={{flex:2, }}>
                             <View style={{flexDirection:'row',justifyContent:'space-between'}}>
                                 <Text>Release Date</Text>
-                                <Text>sadas</Text>
+                                <Text>{item['release_date']}</Text>
                             </View>
                             <View style={{flexDirection:'row',justifyContent:'space-between'}}>
                                 <Text>Rating</Text>
-                                <Text>Rating</Text>
+                                <Text>{item['vote_average']}/10</Text>
                             </View>
                             <View style={{justifyContent:'space-between'}}>
                                 <Text>Over View</Text>
-                                <Text>sadas</Text>
+                                <Text numberOfLines={8}>{item['overview']}</Text>
                             </View>
                         </View>
 
@@ -92,46 +109,31 @@ class ImageWithDetailMoviesComponent extends Component{
 }
 
 class HomeScreen extends Component{
+
+    state = {
+        data:[]
+    };
+
+    componentWillMount(){
+        this.fetchDataMovies();
+    }
+
+    fetchDataMovies = async ()=>{
+        const response = await MoviesUtils.getPopuplarMovieWithAsync();
+        this.setState({data: response});
+    }
+
     render(){
         return(
-            <View style={{flex:1}}>
-                <View style={{backgroundColor:'pink',height:250}}>
-
-                    {/*Title and Add favorite button*/}
-                    <View style={{flex:1, backgroundColor:'yellow',flexDirection:'row',justifyContent:'space-between'}}>
-                        <Text>{this.props['title']=== ''? this.props['title']: 'Title'}</Text>
-                        <Text>Add Favorite</Text>
-                    </View>
-
-                    {/*Wrap content between  Image and description*/}
-                    <View style={{flex:7, backgroundColor:'green',flexDirection:'row'}}>
-
-                        {/*Image*/}
-                        <View style={{flex:1.5, backgroundColor:'aqua',justifyContent:'center',alignItems:'center'}}>
-                            <Image source={{uri:'https://reactjs.org/logo-og.png'}} style={{width:200,height:200}}/>
-                        </View>
-
-                        {/*Detail Part*/}
-                        <View style={{flex:2, backgroundColor:'purple'}}>
-                            <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-                                <Text>Release Date</Text>
-                                <Text>sadas</Text>
-                            </View>
-                            <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-                                <Text>Rating</Text>
-                                <Text>Rating</Text>
-                            </View>
-                            <View style={{justifyContent:'space-between'}}>
-                                <Text>Over View</Text>
-                                <Text>sadas</Text>
-                            </View>
-                        </View>
-
-                    </View>
-
-                </View>
-
-            </View>
+            <FlatList
+                data={this.state.data}
+                keyExtractor={(item,index)=>index}
+                renderItem={({item})=>{
+                    return (
+                        <ImageWithDetailMoviesComponent item={item} navigation={this.props.navigation}/>
+                    )
+                }}
+            />
         );
     };
 }
