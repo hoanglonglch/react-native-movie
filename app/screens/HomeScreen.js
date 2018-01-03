@@ -53,7 +53,7 @@ class ImageWithDetailMoviesComponent extends Component{
         let posterImage = item['poster_path'] !== '' ? MoviesUtils.getImageFromServer(item['poster_path']) : 'https://reactjs.org/logo-og.png';
         return(
             <View style={{flex:1}}>
-                <View style={{height:250}}>
+                <View style={{height:250,borderBottomWidth:2,marginBottom:5}}>
 
                     {/*Title and Add favorite button*/}
                     <View style={{flex:1,flexDirection:'row',}}>
@@ -86,8 +86,8 @@ class ImageWithDetailMoviesComponent extends Component{
                         {/*Detail Part*/}
                         <View style={{flex:2, }}>
                             <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-                                <Text>Release Date</Text>
-                                <Text>{item['release_date']}</Text>
+                                <Text style={{fontWeight:'bold',fontSize:13}}>Release Date</Text>
+                                <Text style={{fontWeight:'bold',fontSize:18}}>{item['release_date']}</Text>
                             </View>
                             <View style={{flexDirection:'row',justifyContent:'space-between'}}>
                                 <Text>Rating</Text>
@@ -111,30 +111,45 @@ class ImageWithDetailMoviesComponent extends Component{
 class HomeScreen extends Component{
 
     state = {
+        moviePage:1,
         data:[]
     };
 
     componentWillMount(){
-        this.fetchDataMovies();
+        console.log('inital')
+        this.fetchDataMovies(this.state.moviePage);
     }
 
-    fetchDataMovies = async ()=>{
-        const response = await MoviesUtils.getPopuplarMovieWithAsync();
+    fetchDataMovies = async (moviePage)=>{
+        const response = await MoviesUtils.getPopuplarMovieWithAsync(moviePage);
         this.setState({data: response});
     }
 
     render(){
-        return(
-            <FlatList
-                data={this.state.data}
-                keyExtractor={(item,index)=>index}
-                renderItem={({item})=>{
-                    return (
-                        <ImageWithDetailMoviesComponent item={item} navigation={this.props.navigation}/>
-                    )
-                }}
-            />
-        );
+
+        if(this.state.data.length !== 0){
+            return(
+                <FlatList
+                    data={this.state.data}
+
+                    keyExtractor={(item,index)=>index}
+                    renderItem={({item})=>{
+                        return (
+                            <ImageWithDetailMoviesComponent item={item} navigation={this.props.navigation}/>
+                        )
+                    }}
+                    onEndReached={()=>{
+                        this.setState(previousState=>{
+                            return {moviePage:previousState['moviePage']+1};
+                        });
+                    }}
+
+                />
+            );
+        }else{
+            return <View style={{flex:1,alignItems:'center',justifyContent:'center'}}><Text>Loading...</Text></View>
+        }
+
     };
 }
 

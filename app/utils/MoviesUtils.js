@@ -6,8 +6,8 @@ export default new class MoviesUtils {
 
     POPULAR_MOVIE = 'popular';
 
-    appendURLAndAPIKey = (urlType)=>{
-        return this.URL_MOVIE +urlType+'?api_key='+this.API_KEY;
+    appendURLAndAPIKey = (urlType,page)=>{
+        return this.URL_MOVIE +urlType+'?api_key='+this.API_KEY+'&page='+page;
     }
 
     getImageFromServer = (urlPath)=>{
@@ -16,8 +16,8 @@ export default new class MoviesUtils {
 
 
     /*Function is use Async Await syntax*/
-    getPopuplarMovieWithAsync = async ()=>{
-        let popularMovieURl = this.appendURLAndAPIKey(this.POPULAR_MOVIE);
+    getPopuplarMovieWithAsync = async (page)=>{
+        let popularMovieURl = this.appendURLAndAPIKey(this.POPULAR_MOVIE,page);
         const response = await fetch(popularMovieURl);
         const responseJson = await response.json();
 
