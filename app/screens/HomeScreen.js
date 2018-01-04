@@ -87,7 +87,7 @@ class ImageWithDetailMoviesComponent extends Component{
                         <View style={{flex:2, }}>
                             <View style={{flexDirection:'row',justifyContent:'space-between'}}>
                                 <Text style={{fontWeight:'bold',fontSize:13}}>Release Date</Text>
-                                <Text style={{fontWeight:'bold',fontSize:18}}>{item['release_date']}</Text>
+                                <Text>{item['release_date']}</Text>
                             </View>
                             <View style={{flexDirection:'row',justifyContent:'space-between'}}>
                                 <Text>Rating</Text>
@@ -115,14 +115,15 @@ class HomeScreen extends Component{
         data:[]
     };
 
-    componentWillMount(){
-        console.log('inital')
-        this.fetchDataMovies(this.state.moviePage);
+    async componentWillMount() {
+        let popularMovieDatas = await this.getPopularDataMovies(this.state.moviePage);
+        this.setState({
+            data: popularMovieDatas
+        });
     }
 
-    fetchDataMovies = async (moviePage)=>{
-        const response = await MoviesUtils.getPopuplarMovieWithAsync(moviePage);
-        this.setState({data: response});
+    getPopularDataMovies = async (moviePage)=>{
+        return await MoviesUtils.getPopuplarMovieWithAsync(moviePage);
     }
 
     render(){
@@ -138,9 +139,16 @@ class HomeScreen extends Component{
                             <ImageWithDetailMoviesComponent item={item} navigation={this.props.navigation}/>
                         )
                     }}
-                    onEndReached={()=>{
-                        this.setState(previousState=>{
-                            return {moviePage:previousState['moviePage']+1};
+                    onEndReached={async ()=>{
+                        let previousData = this.state['data'];
+                        let newPageNumber = this.state['moviePage']+1;
+
+                        let newDatas = await this.getPopularDataMovies(newPageNumber);
+                        newDatas = previousData.concat(newDatas);
+
+
+                        this.setState((previousState) => {
+                            return {moviePage: newPageNumber,data:newDatas};
                         });
                     }}
 
