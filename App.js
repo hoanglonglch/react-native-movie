@@ -4,18 +4,11 @@
  * @flow
  */
 
-import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,Button
-} from 'react-native';
-import { StackNavigator } from 'react-navigation'; // 1.0.0-beta.14
-import { DrawerNavigator } from 'react-navigation'; // 1.0.0-beta.14
+import React, {Component} from 'react';
+import {Platform, StyleSheet, Text, View} from 'react-native';
 /*import MovieDrawerComponent from  './app/components/MovieDrawerComponent'*/
-import HomeScreen from  './app/screens/HomeScreen'
-import MovieDrawerComponent from  './app/components/MovieDrawerComponent'
+import MovieDrawerComponent from './app/components/MovieDrawerComponent';
+import SplashScreen from 'react-native-splash-screen';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -25,6 +18,13 @@ const instructions = Platform.select({
 });
 
 export default class App extends Component<{}> {
+
+    componentDidMount() {
+        // do stuff while splash screen is shown
+        // After having done stuff (such as async tasks) hide the splash screen
+        // SplashScreen.hide();
+    }
+
   render() {
     return (
       <View style={{flex:1}}>
