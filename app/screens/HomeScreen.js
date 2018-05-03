@@ -7,45 +7,6 @@ import {
 } from 'react-native';
 import MoviesUtils from  '../utils/MoviesUtils'
 
-/*const HomeScreen = ({navigation})=>(
-    <View>
-        <Text>Home Screen</Text>
-        <Button
-            title='Detail Page'
-            onPress={()=>{
-                // console.log("log navigation here ",navigation.navigate('Detail'));
-
-                /!*we can get the props here*!/
-                console.log("log navigation here ",this.props.navigation);
-                // this.props.navigation.navigate('Detail')
-            }}
-        />
-    </View>
-)*/
-
-/*class HomeScreen extends Component{
-    render(){
-        return(
-            <View>
-                <Text>Home Screen</Text>
-                <Button
-                    title='Detail Page'
-                    onPress={()=>{
-                        this.props.navigation.navigate('Detail')
-                    }}
-                />
-                <Button
-                    title='Open Drawer'
-                    onPress={()=>{
-                        MoviesUtils.getPopularMoive();
-                        this.props.navigation.navigate('DrawerOpen')
-                    }}
-                />
-            </View>
-        );
-    };
-}*/
-
 class ImageWithDetailMoviesComponent extends Component{
     render(){
         let navigation = this.props['navigation'];
@@ -73,7 +34,9 @@ class ImageWithDetailMoviesComponent extends Component{
                         <View style={{flex:1.5,justifyContent:'center',alignItems:'center',backgroundColor:'grey'}}>
 
                             <TouchableOpacity onPress={()=>{
-                                navigation.navigate('Detail');
+                                navigation.navigate('Detail',{
+                                    movieId: item["id"],
+                                });
                             }}>
                                 <Image source={{
                                     uri:posterImage

@@ -10,6 +10,10 @@ export default new class MoviesUtils {
         return this.URL_MOVIE +urlType+'?api_key='+this.API_KEY+'&page='+page;
     }
 
+    appendURLDetailPage = (movieId)=>{
+        return this.URL_MOVIE+ movieId+ "?api_key="+this.API_KEY;
+    }
+
     getImageFromServer = (urlPath)=>{
         return this.URL_IMAGE_MOIVE+urlPath;
     }
@@ -38,5 +42,14 @@ export default new class MoviesUtils {
             .catch((error) => {
                 console.error(error);
             })
+    }
+
+    getDetailMovie = async (movieId) =>{
+        let urlDetailMovie = this.appendURLDetailPage(movieId);
+        const response = await  fetch(urlDetailMovie);
+        const responseJson = await response.json();
+        console.log("response json:", responseJson);
+        return responseJson;
+
     }
 }

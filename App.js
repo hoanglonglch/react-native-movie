@@ -9,6 +9,7 @@ import {Platform, StyleSheet, Text, View} from 'react-native';
 /*import MovieDrawerComponent from  './app/components/MovieDrawerComponent'*/
 import MovieDrawerComponent from './app/components/MovieDrawerComponent';
 import SplashScreen from 'react-native-splash-screen';
+import DetailMovieScreen from "./app/screens/DetailMovieScreen";
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -29,6 +30,7 @@ export default class App extends Component<{}> {
     return (
       <View style={{flex:1}}>
         <MovieDrawerComponent/>
+          {/*<DetailMovieScreen/>*/}
       </View>
     );
   }
@@ -52,11 +54,3 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
-
-
-const DetailsScreen = () => (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Details Screen</Text>
-    </View>
-);
-
