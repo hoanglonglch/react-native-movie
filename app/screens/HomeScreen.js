@@ -6,6 +6,7 @@ import {
     View,Button, Image,TouchableOpacity
 } from 'react-native';
 import MoviesUtils from  '../utils/MoviesUtils'
+import { createStackNavigator, NavigationActions } from 'react-navigation'; // Version can be specified in package.json
 
 class ImageWithDetailMoviesComponent extends Component{
     render(){

@@ -48,7 +48,7 @@ export default new class MoviesUtils {
         let urlDetailMovie = this.appendURLDetailPage(movieId);
         const response = await  fetch(urlDetailMovie);
         const responseJson = await response.json();
-        console.log("response json:", responseJson);
+        // console.log("response json:", responseJson);
         return responseJson;
 
     }
